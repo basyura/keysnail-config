@@ -23,48 +23,44 @@ key.suspendKey           = "undefined";
 // ================================= Hooks ================================= //
 
 hook.setHook('KeyBoardQuit', function (aEvent) {
-    // キーシーケンス入力中なら無視
-    if (key.currentKeySequence.length)
+    if (key.currentKeySequence.length) {
         return;
-
-    // 検索バーを閉じる    
+    }
     command.closeFindBar();
-
-    if (util.isCaretEnabled())
-    {
+    if (util.isCaretEnabled()) {
         let marked = aEvent.originalTarget.ksMarked;
         let type = typeof marked;
-        if (type === "number" || type === "boolean" && marked)
-        {
-            // マークされてるときは、マークの解除だけ
+        if (type === "number" || type === "boolean" && marked) {
             command.resetMark(aEvent);
-        }
-        else
-        {
-            // それ以外はフォーカスをコンテンツへ
+        } else {
             let elem = document.commandDispatcher.focusedElement;
-            if (elem) elem.blur();
+            if (elem) {
+                elem.blur();
+            }
             gBrowser.focus();
             _content.focus();
         }
-    }
-    else
-    {
-        // テキスト編集してなければ選択の解除だけ
+    } else {
         goDoCommand("cmd_selectNone");
     }
-    
-    // ブラウザ画面なら ESC キーイベントも投げておく
-    if (KeySnail.windowType == "navigator:browser")
+    if (KeySnail.windowType == "navigator:browser") {
         key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_ESCAPE, true);
+    }
 });
 
-// ============================= Key bindings ============================== //
 
-key.setGlobalKey('C-l', function page_focus() {
-    gBrowser.focus();
-    _content.focus();
-}, 'フォーカスを元に戻す');
+// ============================== Black list =============================== //
+
+hook.addToHook("LocationChange", function (aNsURI) {
+    var URL = aNsURI ? aNsURI.spec : null;
+    key.suspendWhenMatched(URL, key.blackList);
+});
+
+key.blackList = [
+    'http://b.hatena.ne.jp/basyura/*'
+];
+
+// ============================= Key bindings ============================== //
 
 key.setGlobalKey('C-f', function () {
     getBrowser().mTabContainer.advanceSelectedTab(1, true);
@@ -86,12 +82,6 @@ key.setGlobalKey(['C-x', 'C-s'], function () {
     userscript.reload();
 }, '設定ファイルを再読み込み');
 
-key.setGlobalKey(['C-x', 'C-f'], function (ev) {
-    var wm = Components.classes['@mozilla.org/appshell/window-mediator;1'].getService(Components.interfaces.nsIWindowMediator);
-    var mainWindow = wm.getMostRecentWindow("navigator:browser");
-    mainWindow.getFindBar().openFindBar();
-}, '検索バー');
-
 key.setGlobalKey('C-w', function (ev) {
     getBrowser().removeTab(getBrowser().selectedTab);
 }, 'タブ / ウィンドウを閉じる');
@@ -107,10 +97,6 @@ key.setGlobalKey('C-b', function () {
 key.setGlobalKey('C-p', function () {
     command.iSearchBackward();
 }, '逆方向インクリメンタル検索', true);
-
-key.setGlobalKey('C-g', function () {
-    getBrowser().focus();
-}, 'BODYへフォーカス', true);
 
 key.setViewKey('j', function (aEvent) {
     key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_DOWN, true);

@@ -114,10 +114,14 @@ key.setViewKey('G', function () {
     goDoCommand("cmd_scrollBottom");
 }, 'ページ末尾へ移動');
 
+key.setViewKey('e', function (aEvent, aArg) {
+    ext.exec("hok-start-foreground-mode", aArg);
+}, 'Hit a Hint を開始', true);
+
 key.setEditKey('C-h', function () {
     goDoCommand("cmd_deleteCharBackward");
 }, '前の一文字を削除');
 
-key.setViewKey('e', function (aEvent, aArg) {
-    ext.exec("hok-start-foreground-mode", aArg);
-}, 'Hit a Hint を開始', true);
+key.setGlobalKey('M-:', function () {
+    command.interpreter();
+}, 'コマンドインタプリタ');

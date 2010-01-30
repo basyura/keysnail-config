@@ -78,7 +78,7 @@ key.setGlobalKey('C-u', function (ev, arg) {
     }
 }, 'up');
 
-key.setGlobalKey(['C-x', 'C-s'], function () {
+key.setGlobalKey('C-.', function () {
     userscript.reload();
 }, '設定ファイルを再読み込み');
 
@@ -97,6 +97,10 @@ key.setGlobalKey('C-b', function () {
 key.setGlobalKey('C-p', function () {
     command.iSearchBackward();
 }, '逆方向インクリメンタル検索', true);
+
+key.setGlobalKey('M-:', function () {
+    command.interpreter();
+}, 'コマンドインタプリタ');
 
 key.setViewKey('j', function (aEvent) {
     key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_DOWN, true);
@@ -122,6 +126,10 @@ key.setEditKey('C-h', function () {
     goDoCommand("cmd_deleteCharBackward");
 }, '前の一文字を削除');
 
-key.setGlobalKey('M-:', function () {
-    command.interpreter();
-}, 'コマンドインタプリタ');
+key.setEditKey('C-c', function (aEvent) {
+    command.copyRegion(aEvent);
+}, '選択中のテキストをコピー');
+
+key.setEditKey('C-v', function (aEvent) {
+    command.yank();
+}, '貼り付け (Yank)');

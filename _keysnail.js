@@ -49,6 +49,7 @@ hook.setHook('KeyBoardQuit', function (aEvent) {
 });
 
 
+
 // ============================== Black list =============================== //
 
 hook.addToHook("LocationChange", function (aNsURI) {
@@ -57,7 +58,8 @@ hook.addToHook("LocationChange", function (aNsURI) {
 });
 
 key.blackList = [
-    'http://b.hatena.ne.jp/basyura/*'
+    'http://b.hatena.ne.jp/basyura/*',
+    'http://smart.fm/*'
 ];
 
 // ============================= Key bindings ============================== //

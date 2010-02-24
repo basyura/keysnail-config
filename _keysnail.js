@@ -49,7 +49,6 @@ hook.setHook('KeyBoardQuit', function (aEvent) {
 });
 
 
-
 // ============================== Black list =============================== //
 
 hook.addToHook("LocationChange", function (aNsURI) {
@@ -135,3 +134,7 @@ key.setEditKey('C-c', function (aEvent) {
 key.setEditKey('C-v', function (aEvent) {
     command.yank();
 }, '貼り付け (Yank)');
+
+key.setEditKey('C-w', function (ev) {
+    command.deleteBackwardWord(ev);
+}, '前の一単語を削除');

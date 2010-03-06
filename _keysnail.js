@@ -132,9 +132,20 @@ key.setEditKey('C-c', function (aEvent) {
 }, '選択中のテキストをコピー');
 
 key.setEditKey('C-v', function (aEvent) {
-    command.yank();
+    command.yank(aEvent);
 }, '貼り付け (Yank)');
 
 key.setEditKey('C-w', function (ev) {
     command.deleteBackwardWord(ev);
 }, '前の一単語を削除');
+
+key.setEditKey('C-x', function (aEvent) {
+    goDoCommand("cmd_copy");
+    goDoCommand("cmd_delete");
+    command.resetMark(aEvent);
+}, '選択中のテキストを切り取り (Kill region)');
+
+key.setEditKey('C-z', function () {
+    display.echoStatusBar("Undo!", 2000);
+    goDoCommand("cmd_undo");
+}, 'アンドゥ');

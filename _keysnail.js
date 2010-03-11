@@ -49,6 +49,7 @@ hook.setHook('KeyBoardQuit', function (aEvent) {
 });
 
 
+
 // ============================== Black list =============================== //
 
 hook.addToHook("LocationChange", function (aNsURI) {
@@ -131,6 +132,11 @@ key.setEditKey('C-c', function (aEvent) {
     command.copyRegion(aEvent);
 }, '選択中のテキストをコピー');
 
+key.setViewKey('C-c', function () {
+    goDoCommand("cmd_copy");
+}, '選択中のテキストをコピー');
+
+
 key.setEditKey('C-v', function (aEvent) {
     command.yank(aEvent);
 }, '貼り付け (Yank)');
@@ -149,3 +155,7 @@ key.setEditKey('C-z', function () {
     display.echoStatusBar("Undo!", 2000);
     goDoCommand("cmd_undo");
 }, 'アンドゥ');
+
+key.setGlobalKey('C-r', function () {
+    BrowserReload();
+}, '更新');

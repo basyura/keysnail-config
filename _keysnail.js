@@ -159,3 +159,11 @@ key.setEditKey('C-z', function () {
 key.setGlobalKey('C-r', function () {
     BrowserReload();
 }, '更新');
+
+
+plugins.options["zou_search.user"] = "basyura"
+
+key.setViewKey(':', function () {
+    shell.input();
+}, 'Command System');
+

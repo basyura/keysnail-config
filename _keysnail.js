@@ -161,11 +161,16 @@ key.setGlobalKey('C-r', function () {
 }, '更新');
 
 
-plugins.options["zou_search.user"] = "basyura"
+plugins.options["zou_search.user"] = "basyura";
 
 key.setViewKey(':', function () {
     shell.input();
 }, 'Command System');
+
+key.setViewKey("t",
+    function (ev, arg) {
+        ext.exec("twitter-client-display-timeline", arg);
+    }, "TL を表示", true);
 
 
 
@@ -306,3 +311,28 @@ listbox#keysnail-completion-list {
 }
 ]]></>.toString()));
  })();
+
+
+function defineGoogleSearchCommand(names, description , site) {
+	shell.add(names , description ,
+		function (args, extra) {
+			let words = encodeURIComponent(extra.left);
+			let site  = encodeURIComponent("site:" + site);
+			let url = "http://www.google.co.jp/search?q=" + words + "&ie=utf-8&oe=utf-8";
+			gBrowser.loadOneTab(url, null, null, null, extra.bang);
+		},
+		{
+			bang      : true,
+			literal   : 0,
+			completer : function (args, extra) {
+				let engines = [util.suggest.ss.getEngineByName("Google")];
+				return completer.fetch.suggest(engines, true)(extra.left || "", extra.whole || "");
+			}   
+	});
+}
+
+defineGoogleSearchCommand(
+	["rubyapi"] , 
+	M({ja: "Ruby API 検索", en: "ruby api search"}) , 
+	"http://doc.okkez.net/187/view/index"
+);

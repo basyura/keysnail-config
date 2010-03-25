@@ -138,7 +138,7 @@ key.setViewKey('C-c', function () {
 
 
 key.setEditKey('C-v', function (aEvent) {
-    command.yank(aEvent);
+	goDoCommand("cmd_paste");
 }, '貼り付け (Yank)');
 
 key.setEditKey('C-w', function (ev) {

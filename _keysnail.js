@@ -326,8 +326,8 @@ function defineGoogleSearchCommand(names, description , site) {
         let engines = [util.suggest.ss.getEngineByName("Google")];
         return completer.fetch.suggest(engines, true)(extra.left || "", extra.whole || "");
       },
-  	},
-	true);
+    },
+    true);
 }
 
 /*
@@ -379,27 +379,78 @@ let ruby_completes = [
 "StandardError","StopIteration","SyntaxError","SystemCallError","SystemExit","SystemStackError",
 "ThreadError","TypeError","ZeroDivisionError","fatal"];
 
-shell.add("rubyapi" , M({ja: "Ruby API 検索", en: "ruby api search"}) ,
-    function (args, extra) {
-      let site = "http://doc.okkez.net/188";
-      for(let i = 0 ; i < ruby_completes.length ; i++) {
-        if(ruby_completes[i] == extra.left) {
-          let url = site + "/view/class/" + extra.left;
-          gBrowser.loadOneTab(url, null, null, null, extra.bang);
-          return;
-        }
+shell.add("refe" , M({ja: "Ruby リファレンス検索", en: "ruby reference search"}) ,
+  function (args, extra) {
+    function generate_url(word) {
+      let site   = "http://doc.okkez.net/188";
+      let clazz  = word.split("#")[0];
+      let method = word.split("#")[1];
+      // not match. search by google with site: .
+      if(ruby_completes.indexOf(clazz) == -1) {
+        let w = encodeURIComponent(word + " site:" + site);
+        return "http://www.google.co.jp/search?q=" + w + "&ie=utf-8&oe=utf-8";
       }
-      let words = encodeURIComponent(extra.left + " site:" + site);
-      let url = "http://www.google.co.jp/search?q=" + words + "&ie=utf-8&oe=utf-8";
-      gBrowser.loadOneTab(url, null, null, null, extra.bang);
-    },
-    {
-      bang      : true,
-      literal   : 0,
-      completer : function (args, extra) {
-        return completer.matcher.substring(ruby_completes)(extra.left || "");
+      // no method. open clazz's
+      if(method == undefined) {
+        return site + "/view/class/" + clazz;
       }
-    },
+      // try to find clazz's method
+      let url = site + "/view/method/" + clazz + "/i/" + encode_method(method);
+      if(isAvailable(url)) {
+        return url;
+      }
+      // try to find object's method
+      url = site + "/view/method/Object/i/" + encode_method(method);
+      if(isAvailable(url)) {
+        return url;
+      }
+      /*
+      // try to find singleton's method
+      url = site + "/view/method/" + clazz + "/s/" + encode_method(method);
+      if(isAvailable(url)) {
+        return url;
+      }
+      // try to find module's method
+      url = site + "/view/method/" + clazz + "/m/" + encode_method(method);
+      if(isAvailable(url)) {
+        return url;
+      }
+      // try to find special method
+      url = site + "/view/method/" + clazz + "/v/" + encode_method(method);
+      if(isAvailable(url)) {
+        return url;
+      }
+      // try to find const
+      url = site + "/view/method/" + clazz + "/c/" + encode_method(method);
+      if(isAvailable(url)) {
+        return url;
+      }
+      */
+      // open clazz's 
+      return site + "/view/class/" + clazz;
+    }
+    function isAvailable(url) {
+      var http = new XMLHttpRequest();
+      http.open("HEAD" , url , false);
+      http.setRequestHeader("accept-language" , "ja");
+      http.setRequestHeader("Cache-Control"   , "no-cache");
+      http.setRequestHeader("content-type"    , "application/x-www-form-urlencoded");
+      http.send();
+      return http.status == 200;
+    }
+    function encode_method(method) {
+      return encodeURIComponent(method).replace("%","=");
+    }
+    // open tab
+    let url = generate_url(extra.left)
+    gBrowser.loadOneTab(url, null, null, null, extra.bang);
+  },
+  {
+    bang      : true,
+    literal   : 0,
+    completer : function (args, extra) {
+      return completer.matcher.substring(ruby_completes)(extra.left || "");
+    }
+  },
   true
 );
-

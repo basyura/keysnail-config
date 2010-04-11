@@ -4,6 +4,7 @@
 // 特殊キー, キーバインド定義, フック, ブラックリスト以外のコードは, この中に書くようにして下さい
 // ========================================================================= //
 //{{%PRESERVE%
+//util.setBoolPref("extensions.keysnail.keyhandler.low_priority", false);
 //}}%PRESERVE%
 // ========================================================================= //
 
@@ -49,6 +50,46 @@ hook.setHook('KeyBoardQuit', function (aEvent) {
 });
 
 
+// original code from Firemacs
+
+hook.setHook(
+    'LocationChange',
+    function (aNsURI) {
+        if (!aNsURI || !aNsURI.spec)
+            return;
+
+        //const wikipediaRegexp = "^http://[a-zA-Z]+\\.wikipedia\\.org/";
+		const wikipediaRegexp = "^http://[a-zA-Z]+[(\.wikipedia\.org/)(\.twitter\.com/)]";
+
+        if (aNsURI.spec.match(wikipediaRegexp))
+        {
+            var doc = content.document;
+
+            if (doc && !doc.__ksAccesskeyKilled__)
+            {
+                doc.addEventListener(
+                    "DOMContentLoaded",
+                    function () {
+                        doc.removeEventListener("DOMContentLoaded", arguments.callee, true);
+
+                        var nodes = doc.evaluate('//*[@accesskey]', doc,
+                                                 null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+
+                        for (let i = 0; i < nodes.snapshotLength; i++)
+                        {
+                            let node = nodes.snapshotItem(i);
+                            let clone = node.cloneNode(true);
+                            clone.removeAttribute('accesskey');
+                            node.parentNode.replaceChild(clone, node);
+                        }
+
+                        doc.__ksAccesskeyKilled__ = true;
+                    }, true);
+            }
+        }
+    });
+
+
 
 // ============================== Black list =============================== //
 
@@ -64,7 +105,8 @@ key.blackList = [
 
 // ============================= Key bindings ============================== //
 
-key.setGlobalKey('C-f', function () {
+
+key.setGlobalKey('C-f', function (ev) {
     getBrowser().mTabContainer.advanceSelectedTab(1, true);
 }, 'ひとつ右のタブへ');
 
@@ -78,6 +120,7 @@ key.setGlobalKey('C-u', function (ev, arg) {
     for (var i = 0; i < 8; i++) {
         key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_UP, true);
     }
+	ev.cancelBubble = true;
 }, 'up');
 
 key.setGlobalKey('C-.', function () {
@@ -94,6 +137,7 @@ key.setGlobalKey('C-n', function () {
 
 key.setGlobalKey('C-b', function () {
     getBrowser().mTabContainer.advanceSelectedTab(-1, true);
+	ev.cancelBubble = true;
 }, 'ひとつ左のタブへ');
 
 key.setGlobalKey('C-p', function () {
@@ -312,6 +356,17 @@ listbox#keysnail-completion-list {
 ]]></>.toString()));
  })();
 
+style.register(<><![CDATA[
+@-moz-document url-prefix("http://twitter.com/") {
+	#introduce_retweet_banner {
+		display : none !important;
+	}
+	ol.statuses > li.last-on-page, ol.statuses > li.last-on-refresh {
+		border-bottom:10px solid #8ec1da !important;
+	}
+}
+]]></>.toString(), style.XHTML);
+
 function defineGoogleSearchCommand(names, description , site) {
   shell.add(names , description ,
     function (args, extra) {
@@ -437,4 +492,13 @@ shell.add("refe" , M({ja: "Ruby リファレンス検索", en: "ruby reference s
   true
 );
 
+
+
+shell.add("goodic", M({ja: "Goo 辞書", en: "Goo dic"}),
+	function (args, extra) {
+		gBrowser.loadOneTab(
+			util.format("http://dictionary.goo.ne.jp/search.php?MT=%s&kind=all&mode=0&IE=UTF-8",
+	  				    encodeURIComponent(args[0])),
+     	null, null, null, extra.bang);
+	}, { bang : true });
 

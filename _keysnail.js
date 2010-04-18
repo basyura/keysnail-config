@@ -23,7 +23,7 @@ key.suspendKey           = "undefined";
 
 // ================================= Hooks ================================= //
 
-hook.setHook('KeyBoardQuit', function (aEvent) {
+function kb_quit(aEvent) {
     if (key.currentKeySequence.length) {
         return;
     }
@@ -47,47 +47,43 @@ hook.setHook('KeyBoardQuit', function (aEvent) {
     if (KeySnail.windowType == "navigator:browser") {
         key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_ESCAPE, true);
     }
-});
+}
+
+hook.setHook('KeyBoardQuit', kb_quit);
+
 
 
 // original code from Firemacs
-
 hook.setHook(
-    'LocationChange',
-    function (aNsURI) {
-        if (!aNsURI || !aNsURI.spec)
-            return;
-
-        //const wikipediaRegexp = "^http://[a-zA-Z]+\\.wikipedia\\.org/";
-		const wikipediaRegexp = "^http://[a-zA-Z]+[(\.wikipedia\.org/)(\.twitter\.com/)]";
-
-        if (aNsURI.spec.match(wikipediaRegexp))
-        {
-            var doc = content.document;
-
-            if (doc && !doc.__ksAccesskeyKilled__)
-            {
-                doc.addEventListener(
-                    "DOMContentLoaded",
-                    function () {
-                        doc.removeEventListener("DOMContentLoaded", arguments.callee, true);
-
-                        var nodes = doc.evaluate('//*[@accesskey]', doc,
-                                                 null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
-
-                        for (let i = 0; i < nodes.snapshotLength; i++)
-                        {
-                            let node = nodes.snapshotItem(i);
-                            let clone = node.cloneNode(true);
-                            clone.removeAttribute('accesskey');
-                            node.parentNode.replaceChild(clone, node);
-                        }
-
-                        doc.__ksAccesskeyKilled__ = true;
-                    }, true);
-            }
-        }
-    });
+'LocationChange',
+function (aNsURI) {
+	if (!aNsURI || !aNsURI.spec)
+		return;
+	//const wikipediaRegexp = "^http://[a-zA-Z]+\\.wikipedia\\.org/";
+	const wikipediaRegexp = "^http://[a-zA-Z]+[(\.wikipedia\.org/)(\.twitter\.com/)]";
+	if (aNsURI.spec.match(wikipediaRegexp)) {
+		var doc = content.document;
+		if (doc && !doc.__ksAccesskeyKilled__) {
+			doc.addEventListener(
+				"DOMContentLoaded",
+				function () {
+					doc.removeEventListener("DOMContentLoaded", arguments.callee, true);
+					var nodes = doc.evaluate('//*[@accesskey]', doc,
+											 null, XPathResult.ORDERED_NODE_SNAPSHOT_TYPE, null);
+					for (let i = 0; i < nodes.snapshotLength; i++) {
+						let node = nodes.snapshotItem(i);
+						if(node.getAttribute('accesskey') == "u") {
+							continue;
+						}
+						let clone = node.cloneNode(true);
+						clone.removeAttribute('accesskey');
+						node.parentNode.replaceChild(clone, node);
+					}
+					doc.__ksAccesskeyKilled__ = true;
+				}, true);
+		}
+	}
+});
 
 
 
@@ -168,6 +164,10 @@ key.setViewKey('e', function (aEvent, aArg) {
     ext.exec("hok-start-foreground-mode", aArg);
 }, 'Hit a Hint を開始', true);
 
+key.setViewKey('E', function (aEvent, aArg) {
+    ext.exec("hok-start-background-mode", aArg);
+}, 'リンクをバックグラウンドで開く Hit a Hint を開始', true);
+
 key.setEditKey('C-h', function () {
     goDoCommand("cmd_deleteCharBackward");
 }, '前の一文字を削除');
@@ -180,6 +180,12 @@ key.setViewKey('C-c', function () {
     goDoCommand("cmd_copy");
 }, '選択中のテキストをコピー');
 
+key.setViewKey('H', function () {
+	BrowserBack();
+}, '戻る');
+key.setViewKey('L', function () {
+	BrowserForward();
+}, '進む');
 
 key.setEditKey('C-v', function (aEvent) {
 	goDoCommand("cmd_paste");
@@ -501,4 +507,5 @@ shell.add("goodic", M({ja: "Goo 辞書", en: "Goo dic"}),
 	  				    encodeURIComponent(args[0])),
      	null, null, null, extra.bang);
 	}, { bang : true });
+
 

@@ -171,7 +171,9 @@ key.setViewKey('E', function (aEvent, aArg) {
 key.setEditKey('C-h', function () {
     goDoCommand("cmd_deleteCharBackward");
 }, '前の一文字を削除');
-
+key.setEditKey('C-d', function () {
+	goDoCommand("cmd_deleteCharForward");
+}, '次の一文字を削除');
 key.setEditKey('C-c', function (aEvent) {
     command.copyRegion(aEvent);
 }, '選択中のテキストをコピー');
@@ -214,14 +216,23 @@ key.setGlobalKey('C-r', function () {
 plugins.options["zou_search.user"] = "basyura";
 
 key.setViewKey(':', function () {
+	if (document.getElementById("keysnail-prompt") != undefined) { 
+		prompt.finish(true,true);
+	}
     shell.input();
 }, 'Command System');
 
+/*
 key.setViewKey("t",
     function (ev, arg) {
         ext.exec("twitter-client-display-timeline", arg);
     }, "TL を表示", true);
 
+key.setGlobalKey(["C-c", "C-t"],
+    function (ev, arg) {
+        ext.exec("twitter-client-tweet", arg);
+    }, "つぶやく", true);
+	*/
 
 
 (function () {
@@ -376,7 +387,11 @@ style.register(<><![CDATA[
 function defineGoogleSearchCommand(names, description , site) {
   shell.add(names , description ,
     function (args, extra) {
-      let words = encodeURIComponent(extra.left + " site:" + site);
+	  let words = extra.left;
+	  if(site != undefined) {
+		  words += " site:" + site;
+	  }
+      let words = encodeURIComponent(words);
       let url = "http://www.google.co.jp/search?q=" + words + "&ie=utf-8&oe=utf-8";
       gBrowser.loadOneTab(url, null, null, null, extra.bang);
     },
@@ -390,6 +405,15 @@ function defineGoogleSearchCommand(names, description , site) {
     },
     true);
 }
+
+
+defineGoogleSearchCommand(
+  ["google"] , 
+  M({ja: "Google 検索", en: "Google Search"})
+);
+key.setViewKey(['SPC','s'], function (ev, arg) {
+    shell.input("google ");
+}, 'Google word');
 
 /*
 defineGoogleSearchCommand(
@@ -509,3 +533,8 @@ shell.add("goodic", M({ja: "Goo 辞書", en: "Goo dic"}),
 	}, { bang : true });
 
 
+shell.add("generatefeed", M({ja: "Page2Feed", en: "Page2feed"}),
+	function (args, extra) {
+		let url = "http://ic.edge.jp/page2feed/preview/" + args[0];
+    	gBrowser.loadOneTab(url, null, null, null, extra.bang);
+	}, { bang : true });

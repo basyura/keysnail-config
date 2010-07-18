@@ -52,13 +52,23 @@ function kb_quit(aEvent) {
 hook.setHook('KeyBoardQuit', kb_quit);
 
 
+hook.addToHook(
+	'LocationChange',
+	function (aNsURI) {
+		if (!aNsURI || !aNsURI.spec) {
+			return;
+		}
+		getBrowser().focus();
+        _content.focus();
+	});
 
 // original code from Firemacs
-hook.setHook(
+hook.addToHook(
 'LocationChange',
 function (aNsURI) {
-	if (!aNsURI || !aNsURI.spec)
+	if (!aNsURI || !aNsURI.spec) {
 		return;
+	}
 	//const wikipediaRegexp = "^http://[a-zA-Z]+\\.wikipedia\\.org/";
 	const wikipediaRegexp = "^http://[a-zA-Z]+[(\.wikipedia\.org/)(\.twitter\.com/)]";
 	if (aNsURI.spec.match(wikipediaRegexp)) {
@@ -95,8 +105,8 @@ hook.addToHook("LocationChange", function (aNsURI) {
 });
 
 key.blackList = [
-    'http://b.hatena.ne.jp/basyura/*',
-    'http://smart.fm/*'
+//    'http://b.hatena.ne.jp/basyura/*',
+//    'http://smart.fm/*'
 ];
 
 // ============================= Key bindings ============================== //
@@ -216,8 +226,11 @@ key.setGlobalKey('C-r', function () {
 plugins.options["zou_search.user"] = "basyura";
 
 key.setViewKey(':', function () {
-	if (document.getElementById("keysnail-prompt") != undefined) { 
-		prompt.finish(true,true);
+	try {
+		if (document.getElementById("keysnail-prompt") != undefined) { 
+			prompt.finish(true,true);
+		}
+	} catch(e) {
 	}
     shell.input();
 }, 'Command System');
@@ -411,7 +424,7 @@ defineGoogleSearchCommand(
   ["google"] , 
   M({ja: "Google 検索", en: "Google Search"})
 );
-key.setViewKey(['SPC','s'], function (ev, arg) {
+key.setViewKey('C-s', function (ev, arg) {
     shell.input("google ");
 }, 'Google word');
 
@@ -535,6 +548,43 @@ shell.add("goodic", M({ja: "Goo 辞書", en: "Goo dic"}),
 
 shell.add("generatefeed", M({ja: "Page2Feed", en: "Page2feed"}),
 	function (args, extra) {
-		let url = "http://ic.edge.jp/page2feed/preview/" + args[0];
+		let url = "http://ic.edge.jp/page2feed/preview/"
+		if(args.length != 0) {
+			url =  + args[0];
+		}
+		else {
+			url += content.document.location.href;
+		}
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
 	}, { bang : true });
+
+
+///// Plugin : Site local keymap
+plugins.options["site_local_keymap.local_keymap"] = {
+	"^http://b.hatena.ne.jp/" : [
+		["j" , null],
+		["k" , null]
+	],
+	"^http://smart.fm/" : [
+		["j" , null],
+		["k" , null]
+	]
+}
+
+
+// 新しいタブで開く
+plugins.options["bmany.default_open_type"] = "tab";
+key.setViewKey('b', function (ev, arg) {
+    ext.exec("bmany-list-all-bookmarks", arg, ev);
+}, 'ブックマーク');
+
+/*
+key.setViewKey('B', function (ev, arg) {
+    ext.exec("bmany-list-bookmarklets", arg, ev);
+}, "bmany - ブックマークレットを一覧表示");
+
+key.setViewKey([':', 'k'], function (ev, arg) {
+    ext.exec("bmany-list-bookmarks-with-keyword", arg, ev);
+}, "bmany - キーワード付きブックマークを一覧表示");
+*/
+

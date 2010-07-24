@@ -222,6 +222,22 @@ key.setGlobalKey('C-r', function () {
     BrowserReload();
 }, '更新');
 
+key.setGlobalKey('C-l', function (ev) {
+    command.focusToById("urlbar");
+}, 'ロケーションバー');
+
+key.setViewKey('C-k' , function (ev) {
+    var uri = getBrowser().currentURI;
+    if (uri.path == "/") {
+        return;
+    }
+    var pathList = uri.path.split("/");
+    if (!pathList.pop()) {
+        pathList.pop();
+    }
+    loadURI(uri.prePath + pathList.join("/") + ("/"));
+}, '一つ上へ');
+
 
 plugins.options["zou_search.user"] = "basyura";
 
@@ -424,7 +440,7 @@ defineGoogleSearchCommand(
   ["google"] , 
   M({ja: "Google 検索", en: "Google Search"})
 );
-key.setViewKey('C-s', function (ev, arg) {
+key.setGlobalKey('C-s', function (ev, arg) {
     shell.input("google ");
 }, 'Google word');
 

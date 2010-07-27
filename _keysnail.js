@@ -116,6 +116,47 @@ key.setGlobalKey('C-f', function (ev) {
     getBrowser().mTabContainer.advanceSelectedTab(1, true);
 }, 'ひとつ右のタブへ');
 
+key.setGlobalKey('C-b', function () {
+    getBrowser().mTabContainer.advanceSelectedTab(-1, true);
+	ev.cancelBubble = true;
+}, 'ひとつ左のタブへ');
+
+key.setEditKey('C-f', function (aEvent) {
+    key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_RIGHT, true);
+}, '右');
+
+key.setEditKey('C-b', function (aEvent) {
+    key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_LEFT, true);
+}, '左');
+
+key.setEditKey('C-p', function (aEvent) {
+   if(!command.gFindBar.hidden) {
+        command.iSearchBackward();
+        return;
+    }
+    key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_UP, true);
+}, '上');
+
+key.setEditKey('C-n', function (aEvent) {
+    if(!command.gFindBar.hidden) {
+        command.iSearchForward();
+        return;
+    }
+    key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_DOWN, true);
+}, '下');
+
+
+
+
+key.setGlobalKey('C-n', function () {
+    command.iSearchForward();
+}, 'インクリメンタル検索', true);
+
+key.setGlobalKey('C-p', function () {
+    command.iSearchBackward();
+}, '逆方向インクリメンタル検索', true);
+
+
 key.setGlobalKey('C-d', function (ev, arg) {
     for (var i = 0; i < 8; i++) {
         key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true);
@@ -137,18 +178,6 @@ key.setGlobalKey('C-w', function (ev) {
     getBrowser().removeTab(getBrowser().selectedTab);
 }, 'タブ / ウィンドウを閉じる');
 
-key.setGlobalKey('C-n', function () {
-    command.iSearchForward();
-}, 'インクリメンタル検索', true);
-
-key.setGlobalKey('C-b', function () {
-    getBrowser().mTabContainer.advanceSelectedTab(-1, true);
-	ev.cancelBubble = true;
-}, 'ひとつ左のタブへ');
-
-key.setGlobalKey('C-p', function () {
-    command.iSearchBackward();
-}, '逆方向インクリメンタル検索', true);
 
 key.setGlobalKey('M-:', function () {
     command.interpreter();

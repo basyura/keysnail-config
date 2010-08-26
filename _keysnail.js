@@ -5,6 +5,25 @@
 // ========================================================================= //
 //{{%PRESERVE%
 //util.setBoolPref("extensions.keysnail.keyhandler.low_priority", false);
+//
+// for autopager
+style.register(<><![CDATA[
+    .autopagerize_page_separator {
+        display:none;
+    }
+    .autopagerize_link {
+        text-decoration : none !important;
+        color     : #8ec1da !important;
+    }
+    .autopagerize_page_info {
+        background-color : #8ec1da;
+        font-size : 6px;
+        height    : 4px;
+        color     : #8ec1da !important;
+		text-align:right;
+    }
+]]></>.toString() , style.XHTML);
+//
 //}}%PRESERVE%
 // ========================================================================= //
 
@@ -52,15 +71,24 @@ function kb_quit(aEvent) {
 hook.setHook('KeyBoardQuit', kb_quit);
 
 
+/*
 hook.addToHook(
 	'LocationChange',
 	function (aNsURI) {
 		if (!aNsURI || !aNsURI.spec) {
 			return;
 		}
-		getBrowser().focus();
-        _content.focus();
+		document.addEventListener(
+			"DOMContentLoaded",
+			function () {
+				let (elem = document.commandDispatcher.focusedElement) elem && elem.blur();
+				gBrowser.focus();
+				content.focus();
+			},
+			true);
 	});
+
+*/
 
 // original code from Firemacs
 hook.addToHook(
@@ -603,6 +631,46 @@ shell.add("generatefeed", M({ja: "Page2Feed", en: "Page2feed"}),
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
 	}, { bang : true });
 
+shell.add("twitterAPI", "twitter api",
+	function (args, extra) {
+		let url = "http://watcher.moe-nifty.com/memo/docs/twitterAPI.txt"
+    	gBrowser.loadOneTab(url, null, null, null, extra.bang);
+	}, { bang : true });
+
+shell.add("javadoc" , "javadoc" ,
+	function (args, extra) {
+		let url = "http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/";
+    	gBrowser.loadOneTab(url, null, null, null, extra.bang);
+	}, { bang : true });
+
+shell.add("jqueryAPI" , "jqueryAPI" ,
+	function (args, extra) {
+		let url = "http://semooh.jp/jquery/";
+    	gBrowser.loadOneTab(url, null, null, null, extra.bang);
+	}, { bang : true });
+
+shell.add("keycode" , "keycode" ,
+	function (args, extra) {
+		let url = "http://www.programming-magic.com/file/20080205232140/keycode_table.html"
+    	gBrowser.loadOneTab(url, null, null, null, extra.bang);
+	}, { bang : true });
+
+/*
+let bookmarks = [
+	["twitterAPI" , "http://watcher.moe-nifty.com/memo/docs/twitterAPI.txt"],
+	["javadoc"    , "http://java.sun.com/j2se/1.5.0/ja/docs/ja/api/"],
+];
+
+
+for(let i = 0 ; i < bookmarks.length ; i++) {
+	shell.add(bookmarks[i][0] , bookmarks[i][0] ,
+		function(url) {
+			return function() {
+				gBrowser.loadOneTab(bookmarks[i][0], null, null, null, extra.bang);
+			};
+		}(bookmarks[i][1]), { bang : true });
+}
+					*/
 
 ///// Plugin : Site local keymap
 plugins.options["site_local_keymap.local_keymap"] = {
@@ -611,6 +679,10 @@ plugins.options["site_local_keymap.local_keymap"] = {
 		["k" , null]
 	],
 	"^http://smart.fm/" : [
+		["j" , null],
+		["k" , null]
+	],
+	"^https://mail.google.com/" : [
 		["j" , null],
 		["k" , null]
 	]

@@ -275,6 +275,11 @@ key.setEditKey('C-z', function () {
     goDoCommand("cmd_undo");
 }, 'アンドゥ');
 
+key.setEditKey('C-u', function () {
+    display.echoStatusBar("Undo!", 2000);
+    goDoCommand("cmd_undo");
+}, 'アンドゥ');
+
 key.setGlobalKey('C-r', function () {
     BrowserReload();
 }, '更新');
@@ -295,6 +300,10 @@ key.setViewKey('C-k' , function (ev) {
     loadURI(uri.prePath + pathList.join("/") + ("/"));
 }, '一つ上へ');
 
+
+key.setEditKey('C-k' , function(ev) {
+    command.killLine(ev);
+  });
 
 plugins.options["zou_search.user"] = "basyura";
 

@@ -29,7 +29,7 @@ style.register(<><![CDATA[
 
 // ========================= Special key settings ========================== //
 
-key.quitKey              = "C-g";
+key.quitKey              = "C-j";
 key.helpKey              = "undefined";
 key.escapeKey            = "C-q";
 key.macroStartKey        = "undefined";
@@ -714,3 +714,10 @@ key.setViewKey([':', 'k'], function (ev, arg) {
 }, "bmany - キーワード付きブックマークを一覧表示");
 */
 
+key.setGlobalKey(["C-x", "C-b"], function (ev, arg) {
+    ext.exec("list-hateb-items", arg);
+}, "はてなブックマークのアイテムを一覧表示", true);
+
+key.setViewKey("c", function (ev, arg) {
+    ext.exec("list-hateb-comments", arg);
+}, "はてなブックマークのコメントを一覧表示", true);

@@ -29,7 +29,7 @@ style.register(<><![CDATA[
 
 // ========================= Special key settings ========================== //
 
-key.quitKey              = "C-g";
+key.quitKey              = "C-j";
 key.helpKey              = "undefined";
 key.escapeKey            = "C-q";
 key.macroStartKey        = "undefined";
@@ -658,6 +658,15 @@ shell.add("jqueryAPI" , "jqueryAPI" ,
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
 	}, { bang : true });
 
+
+shell.add("railsAPI" , "railsAPI" ,
+	function (args, extra) {
+		let url = "http://railsapi.com/doc/rails-v3.0.0/";
+    	gBrowser.loadOneTab(url, null, null, null, extra.bang);
+	}, { bang : true });
+ 
+
+
 shell.add("keycode" , "keycode" ,
 	function (args, extra) {
 		let url = "http://www.programming-magic.com/file/20080205232140/keycode_table.html"
@@ -713,4 +722,12 @@ key.setViewKey([':', 'k'], function (ev, arg) {
     ext.exec("bmany-list-bookmarks-with-keyword", arg, ev);
 }, "bmany - キーワード付きブックマークを一覧表示");
 */
+
+key.setGlobalKey(["C-x", "C-b"], function (ev, arg) {
+    ext.exec("list-hateb-items", arg);
+}, "はてなブックマークのアイテムを一覧表示", true);
+
+key.setViewKey("c", function (ev, arg) {
+    ext.exec("list-hateb-comments", arg);
+}, "はてなブックマークのコメントを一覧表示", true);
 

@@ -730,4 +730,3 @@ key.setGlobalKey(["C-x", "C-b"], function (ev, arg) {
 key.setViewKey("c", function (ev, arg) {
     ext.exec("list-hateb-comments", arg);
 }, "はてなブックマークのコメントを一覧表示", true);
-

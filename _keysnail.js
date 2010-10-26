@@ -153,9 +153,21 @@ key.setEditKey('C-f', function (aEvent) {
     key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_RIGHT, true);
 }, '右');
 
+key.setEditKey('C-a', function (ev) {
+    command.beginLine(ev);
+}, '行頭');
+
 key.setEditKey('C-b', function (aEvent) {
     key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_LEFT, true);
 }, '左');
+
+key.setEditKey('C-e', function (ev) {
+  command.endLine(ev);
+}, '行末');
+
+key.setGlobalKey('C-e', function (ev) {
+    //noop
+}, '');
 
 key.setEditKey('C-p', function (aEvent) {
    if(!command.gFindBar.hidden) {
@@ -509,6 +521,13 @@ defineGoogleSearchCommand(
 key.setGlobalKey('C-s', function (ev, arg) {
     shell.input("google ");
 }, 'Google word');
+key.setGlobalKey(['C-x','C-d'], function (ev, arg) {
+    shell.input("goodic ");
+}, 'goodic');
+
+key.setGlobalKey('C-j' , function(){
+    //noop
+  }, 'noop');
 
 /*
 defineGoogleSearchCommand(
@@ -730,3 +749,4 @@ key.setGlobalKey(["C-x", "C-b"], function (ev, arg) {
 key.setViewKey("c", function (ev, arg) {
     ext.exec("list-hateb-comments", arg);
 }, "はてなブックマークのコメントを一覧表示", true);
+

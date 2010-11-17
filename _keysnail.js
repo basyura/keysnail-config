@@ -750,3 +750,26 @@ key.setViewKey("c", function (ev, arg) {
     ext.exec("list-hateb-comments", arg);
 }, "はてなブックマークのコメントを一覧表示", true);
 
+
+key.setGlobalKey(['C-x','C-i'] , function (ev, arg) {
+    var key = 'qh9hyQwfEL1P'
+    var d = content.document;
+    var z = d.createElement('script');
+    var b = d.body;
+    var l = d.location;
+    try{
+      if(!b) {
+        throw(0);
+      }
+      d.title = '(Saving...) ' + d.title;
+      var url = l.protocol + '//www.instapaper.com/j/' + key + '?u=' + 
+        encodeURIComponent(l.href) + '&t=' + (new Date().getTime());
+      z.setAttribute('src' , url);
+      b.appendChild(z);
+    }
+    catch(e){
+      alert('Please wait until the page has loaded. ');
+    }
+  });
+
+

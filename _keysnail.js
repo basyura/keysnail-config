@@ -246,6 +246,9 @@ key.setViewKey('e', function (aEvent, aArg) {
 key.setViewKey('E', function (aEvent, aArg) {
     ext.exec("hok-start-background-mode", aArg);
 }, 'リンクをバックグラウンドで開く Hit a Hint を開始', true);
+key.setViewKey('C-e', function (aEvent, aArg) {
+    ext.exec("hok-start-background-mode", aArg);
+}, 'リンクをバックグラウンドで開く Hit a Hint を開始', true);
 
 key.setEditKey('C-h', function () {
     goDoCommand("cmd_deleteCharBackward");
@@ -341,6 +344,7 @@ key.setGlobalKey(["C-c", "C-t"],
     }, "つぶやく", true);
 	*/
 
+plugins.options["twitter_client.popup_new_statuses"] = true;
 
 (function () {
      function arrange(seed) {
@@ -491,6 +495,19 @@ style.register(<><![CDATA[
 }
 ]]></>.toString(), style.XHTML);
 
+
+style.register(<><![CDATA[
+@-moz-document url-prefix("http://reader.livedoor.com/reader/") {
+      #header {display:none;}
+    }
+]]></>.toString(), style.XHTML);
+
+style.register(<><![CDATA[
+#urlbar *|input {
+  ime-mode: inactive !important;
+}
+]]></>.toString());
+
 function defineGoogleSearchCommand(names, description , site) {
   shell.add(names , description ,
     function (args, extra) {
@@ -536,6 +553,28 @@ defineGoogleSearchCommand(
   "http://doc.okkez.net/188/"
 );
 */
+
+key.setGlobalKey(['C-x','C-r'], function (ev, arg) {
+    shell.input("rurema ");
+  });
+shell.add("rurema" , M({ja: "るりまサーチ", en: "rurema search"}) ,
+  function(argx , extra) {
+    let list  = extra.left.split(/\s+/)
+    let url = "http://doc.ruby-lang.org/ja/search/version:1.9.2/";
+    for(let i = 0 ; i < list.length ; i++) {
+      url += 'query:' + encodeURIComponent(list[i]) + '/';
+    }
+    gBrowser.loadOneTab(url, null, null, null, extra.bang);
+  },
+  {
+    bang      : true,
+    literal   : 0,
+    completer : function (args, extra) {
+      let engines = [util.suggest.ss.getEngineByName("Google")];
+      return completer.fetch.suggest(engines, true)(extra.left || "", extra.whole || "");
+    },
+  },
+  true);
 
 let ruby_completes = null;
 shell.add("refe" , M({ja: "Ruby リファレンス検索", en: "ruby reference search"}) ,

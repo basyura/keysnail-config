@@ -231,6 +231,14 @@ key.setViewKey('k', function (aEvent) {
     key.generateKey(aEvent.originalTarget, KeyEvent.DOM_VK_UP, true);
 }, '一行スクロールアップ');
 
+key.setViewKey('l' , function (ev) {
+    key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_RIGHT, true);
+  } , '右へ');
+
+key.setViewKey('h' , function (ev) {
+    key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_LEFT, true);
+  } , '左へ');
+
 key.setViewKey(['g', 'g'], function () {
     goDoCommand("cmd_scrollTop");
 }, 'ページ先頭へ移動');

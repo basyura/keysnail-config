@@ -340,7 +340,6 @@ key.setViewKey(':', function () {
     shell.input();
 }, 'Command System');
 
-/*
 key.setViewKey("t",
     function (ev, arg) {
         ext.exec("twitter-client-display-timeline", arg);
@@ -350,7 +349,6 @@ key.setGlobalKey(["C-c", "C-t"],
     function (ev, arg) {
         ext.exec("twitter-client-tweet", arg);
     }, "つぶやく", true);
-	*/
 
 plugins.options["twitter_client.popup_new_statuses"] = true;
 
@@ -505,16 +503,71 @@ style.register(<><![CDATA[
 
 
 style.register(<><![CDATA[
-@-moz-document url-prefix("http://reader.livedoor.com/reader/") {
-      #header {display:none;}
-    }
-]]></>.toString(), style.XHTML);
-
-style.register(<><![CDATA[
 #urlbar *|input {
   ime-mode: inactive !important;
 }
 ]]></>.toString());
+
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://www.yahoo.co.jp/") {
+        #searchbox, #header, #toptxt, #sub, #pickupservice, #application, #companybox, #composite, #favoriteservice, #spotlight, #selectionR, #video, #cgmboxR, #announce, #event, #tct, #footer { display : none; }
+      }
+    ]]></>.toString() , style.XHTML);
+
+
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://www.livedoor.com/") {
+        #header, .member-outer,  #extra, .boxhead, #today-site, #feature-ad, .boxhead-blogos, #blogos-box, .wrapper-sub
+        { display : none; }
+      }
+    ]]></>.toString() , style.XHTML);
+
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://dailynews.yahoo.co.jp") {
+        body { display : none; }
+      }
+    ]]></>.toString() , style.XHTML);
+
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://headlines.yahoo.co.jp/") ,
+                     url-prefix("http://zasshi.news.yahoo.co.jp/") {
+        #sub, .adCt, #contents-header, #uhd, .yjmthproplogoarea, .yjmthloginarea, #subNav, #ynRelatedArticleList, #center1, #ynFreshEye, #ynAffinityList, #ynDetailPageNavigation, #pos-sqb, #ynRelatedTopics, #center2, #bottomNav, #yjPluginAFP01, .yjstdPlug, #footer, #ynRating, #ynSportsMod, #ynSocialBookmark, #ynRelatedBlog, #commentshow, .cptHeaderComment, .cptSort  { display : none !important; };
+      }
+      .yjmth {
+        text-align : left !important;
+        position : absolute;
+        left  : 10px;
+        top   : 0px;
+      }
+    ]]></>.toString() , style.XHTML);
+
+
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://reader.livedoor.com/reader/") {
+        #ads_top, .adsWrapper, #total_unread_count, #myfeed, #my_menu, #reader_logo { display : none }
+        #menu {
+          position : absolute !important;
+          left : 0px !important;
+        }
+        #message_box {
+          left : 0px !important;
+          top  : -6px !important;
+        }
+      }
+    ]]></>.toString() , style.XHTML);
+
+
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://www.atmarkit.co.jp/") {
+        #rightcol, #header, #btm-ttwpjob, .btmlist, #btmRss, #frec, #mailmagForm ,#footer, { display : none; }
+      }
+    ]]></>.toString() , style.XHTML);
+
+
+
+
+
+
 
 function defineGoogleSearchCommand(names, description , site) {
   shell.add(names , description ,
@@ -819,4 +872,17 @@ key.setGlobalKey(['C-x','C-i'] , function (ev, arg) {
     }
   });
 
+key.setGlobalKey(['C-x','C-i'] , function (ev) {
+  ext.exec("ril-append");
+}, 'リンクをバックグラウンドで開く Hit a Hint を開始', true);
+key.setGlobalKey(['C-x','C-l'] , function (ev) {
+  ext.exec("ril-show-reading-list");
+}, 'リンクをバックグラウンドで開く Hit a Hint を開始', true);
 
+
+key.setGlobalKey(['C-x', 'j'], function (ev, arg) {
+    ext.exec("JsReferrence-open-prompt", arg, ev);
+}, 'JsReferrenceのプロンプトを開く', true);
+key.setGlobalKey(['C-x', 'r'], function (ev, arg) {
+    ext.exec("JsReferrence-reIndex", arg, ev);
+}, 'JsReferrenceののインデックスを作り直す', true);

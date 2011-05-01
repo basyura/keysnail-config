@@ -517,7 +517,7 @@ style.register(<><![CDATA[
 
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://www.livedoor.com/") {
-        #header, .member-outer,  #extra, .boxhead, #today-site, #feature-ad, .boxhead-blogos, #blogos-box, .wrapper-sub
+        #header, .member-outer,  #extra, .boxhead, #today-site, #feature-ad, .boxhead-blogos, #blogos-box, .wrapper-sub, #servicelist, #media, #news-special, #lite, #biz
         { display : none; }
       }
     ]]></>.toString() , style.XHTML);
@@ -563,6 +563,23 @@ style.register(<><![CDATA[
       }
     ]]></>.toString() , style.XHTML);
 
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://news.livedoor.com/topics") {
+        body { display : none !important; }
+      }
+    ]]></>.toString() , style.XHTML);
+
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://news.livedoor.com") {
+        #functionHeader, #logo, #tagline, #navigation, #aside, #content-nav, #prtextBox, #content-nav, .prtextBox, #article-social-tool, #article-social-comment, #article-breadcrumb, .contentBox, .title-box, #photo-news, #amazon-ranking, #yahoo-shopping, #footer, .relativeword-dl, .section, .keyword-desc, .clearfix, #newsHeader, #subColumn, #newsFooter, #ldFooter, #commonFooter, .gotop, .adsense-newstop, .LDservice-link, #headerBanner, .large-showcase , #become
+        { display : none !important; }
+        #contentHeader {
+          position : absolute;
+          top  : -15px;
+          left : -240px; -50px;
+        }
+      }
+    ]]></>.toString() , style.XHTML);
 
 
 

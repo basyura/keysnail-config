@@ -571,7 +571,7 @@ style.register(<><![CDATA[
 
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://reader.livedoor.com/reader/") {
-        #ads_top, .adsWrapper, #total_unread_count, #myfeed, #my_menu, #reader_logo { display : none }
+        #header,#ads_top, .adsWrapper, #total_unread_count, #myfeed, #my_menu, #reader_logo { display : none }
         #menu {
           position : absolute !important;
           left : 0px !important;

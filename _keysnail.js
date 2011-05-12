@@ -503,9 +503,36 @@ style.register(<><![CDATA[
 
 
 style.register(<><![CDATA[
-#urlbar *|input {
-  ime-mode: inactive !important;
-}
+  #urlbar *|input {
+    ime-mode: inactive !important;
+  }
+
+  #urlbar dropmarker {display:none !important;}
+
+  menu[container="true"]>menupopup[placespopup="true"]>menuseparator:nth-last-child(-n+2),
+  menu[container="true"]>menupopup[placespopup="true"]>menuseparator:nth-last-child(-n+2) + menuitem{
+  visibility:collapse !important;
+  }
+  toolbarbutton[container="true"]>menupopup[placespopup="true"]>menuseparator:nth-last-child(-n+2),
+  toolbarbutton[container="true"]>menupopup[placespopup="true"]>menuseparator:nth-last-child(-n+2) + menuitem{
+  visibility:collapse !important;
+  }
+
+  #placesContext>menuitem[id="placesContext_openContainer:tabs"],
+  #placesContext>menuitem[id="placesContext_openContainer:tabs"]:not([hidden])+menuitem+#placesContext_openSeparator {
+  visibility:collapse !important;
+  }
+
+  #stop-button:not([disabled=true]) + #reload-button,
+  #stop-button[disabled=true]
+  {
+      display:none !important;
+  }
+
+  #star-button
+  {
+  display: none !important;
+  }
 ]]></>.toString());
 
 style.register(<><![CDATA[
@@ -568,7 +595,7 @@ style.register(<><![CDATA[
         body { display : none !important; }
       }
     ]]></>.toString() , style.XHTML);
-
+/*
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://news.livedoor.com") {
         #functionHeader, #logo, #tagline, #navigation, #aside, #content-nav, #prtextBox, #content-nav, .prtextBox, #article-social-tool, #article-social-comment, #article-breadcrumb, .contentBox, .title-box, #photo-news, #amazon-ranking, #yahoo-shopping, #footer, .relativeword-dl, .section, .keyword-desc, .clearfix, #newsHeader, #subColumn, #newsFooter, #ldFooter, #commonFooter, .gotop, .adsense-newstop, .LDservice-link, #headerBanner, .large-showcase , #become
@@ -580,7 +607,13 @@ style.register(<><![CDATA[
         }
       }
     ]]></>.toString() , style.XHTML);
+*/
 
+style.register(<><![CDATA[
+      @-moz-document url-prefix("http://2ch.xn--o9j0bk.gaasuu.com/entry") {
+        body { display : none !important; }
+      }
+    ]]></>.toString() , style.XHTML);
 
 
 

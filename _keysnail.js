@@ -141,7 +141,9 @@ key.blackList = [
 
 
 key.setGlobalKey('C-f', function (ev) {
-    getBrowser().mTabContainer.advanceSelectedTab(1, true);
+    setTimeout(function() {
+        getBrowser().mTabContainer.advanceSelectedTab(1, true);
+      } , 100)
 }, 'ひとつ右のタブへ');
 
 key.setGlobalKey('C-b', function () {
@@ -189,7 +191,9 @@ key.setEditKey('C-n', function (aEvent) {
 
 
 key.setGlobalKey('C-n', function () {
-    command.iSearchForward();
+    setTimeout(function() {
+        command.iSearchForward();
+      } , 100)
 }, 'インクリメンタル検索', true);
 
 key.setGlobalKey('C-p', function () {
@@ -215,7 +219,9 @@ key.setGlobalKey('C-.', function () {
 }, '設定ファイルを再読み込み');
 
 key.setGlobalKey('C-w', function (ev) {
-    getBrowser().removeTab(getBrowser().selectedTab);
+    setTimeout(function () {
+      getBrowser().removeTab(getBrowser().selectedTab);
+    } , 100);
 }, 'タブ / ウィンドウを閉じる');
 
 
@@ -506,6 +512,8 @@ style.register(<><![CDATA[
   #urlbar *|input {
     ime-mode: inactive !important;
   }
+  tabbrowser .tabs-newtab-button { display: none !important; }
+  tabbrowser .tabs-container> stack { display: none; }
 
   #urlbar dropmarker {display:none !important;}
 
@@ -646,11 +654,17 @@ defineGoogleSearchCommand(
   ["google"] , 
   M({ja: "Google 検索", en: "Google Search"})
 );
-key.setGlobalKey('C-s', function (ev, arg) {
-    shell.input("google ");
-}, 'Google word');
+
+key.setGlobalKey('C-s' , function (ev, arg) {
+    setTimeout(function() {
+        shell.input("google ");
+      } , 100);
+  }, 'Google word');
+
 key.setGlobalKey(['C-x','C-d'], function (ev, arg) {
-    shell.input("goodic ");
+    setTimeout(function() {
+        shell.input("goodic ");
+      } , 100)
 }, 'goodic');
 
 key.setGlobalKey('C-j' , function(){

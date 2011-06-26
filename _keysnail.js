@@ -201,17 +201,41 @@ key.setGlobalKey('C-p', function () {
 }, '逆方向インクリメンタル検索', true);
 
 
+var use_smooth_scroll = false;
+
 key.setGlobalKey('C-d', function (ev, arg) {
-    for (var i = 0; i < 8; i++) {
+    if (!use_smooth_scroll) {
+      for (var i = 0 ; i < 8 ; i++) {
         key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true);
+      }
+      return;
+    }
+    for (var i = 0 ; i < 10 ; i++) {
+      (function () {
+          var n = i;
+          setTimeout(function() {
+              key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_DOWN, true)
+            } , 20 * n);
+        })();
     }
 }, 'down');
 
 key.setGlobalKey('C-u', function (ev, arg) {
-    for (var i = 0; i < 8; i++) {
+    if (!use_smooth_scroll) {
+      for (var i = 0; i < 8; i++) {
         key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_UP, true);
+      }
+      return;
     }
-	ev.cancelBubble = true;
+    for (var i = 0 ; i < 10 ; i++) {
+      (function () {
+        var n = i;
+        setTimeout(function() {
+            key.generateKey(ev.originalTarget, KeyEvent.DOM_VK_UP, true)
+          } , 20 * n);
+      })();
+    }
+	//ev.cancelBubble = true;
 }, 'up');
 
 key.setGlobalKey('C-.', function () {

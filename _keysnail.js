@@ -21,8 +21,20 @@ style.register(<><![CDATA[
         height    : 4px;
         color     : #8ec1da !important;
 		text-align:right;
-    }
+   }
+   @-moz-document domain("plus.google.com") {
+     div.a-Eo-T {
+       position:fixed;
+       top:0;
+       width:100%;
+     }
+     body {
+       padding-top:30px;
+     }
+   }
+
 ]]></>.toString() , style.XHTML);
+
 //
 //}}%PRESERVE%
 // ========================================================================= //
@@ -910,7 +922,17 @@ plugins.options["site_local_keymap.local_keymap"] = {
 	"^https://mail.google.com/" : [
 		["j" , null],
 		["k" , null]
-	]
+	],
+	"^http://mail.google.com/" : [
+		["j" , null],
+		["k" , null]
+	],
+	"^http://reader.livedoor.com/reader/" : [
+    ["C-d" , function(){}],
+    ["C-u" , function(){}],
+    ["j"   , null],
+    ["ku"  , null],
+	],
 }
 
 
@@ -974,3 +996,15 @@ key.setGlobalKey(['C-x', 'j'], function (ev, arg) {
 key.setGlobalKey(['C-x', 'r'], function (ev, arg) {
     ext.exec("JsReferrence-reIndex", arg, ev);
 }, 'JsReferrenceののインデックスを作り直す', true);
+
+
+plugins.options["heaven.dotnet.references"] = [
+    { name : "dotnet",
+      param : {
+	  rootDocUrl : "http://msdn.microsoft.com/en-us/library/gg145045.aspx"
+      }
+    }
+];
+key.setViewKey(['C-x', 'C-n'], function(ev, arg){
+    plugins.heavens.dotnet.open();
+}, '.NET Documentcを開く');

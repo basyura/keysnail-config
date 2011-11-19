@@ -634,12 +634,12 @@ style.register(<><![CDATA[
       }
     ]]></>.toString() , style.XHTML);
 
+/*
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://news.livedoor.com/topics") {
         body { display : none !important; }
       }
     ]]></>.toString() , style.XHTML);
-/*
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://news.livedoor.com") {
         #functionHeader, #logo, #tagline, #navigation, #aside, #content-nav, #prtextBox, #content-nav, .prtextBox, #article-social-tool, #article-social-comment, #article-breadcrumb, .contentBox, .title-box, #photo-news, #amazon-ranking, #yahoo-shopping, #footer, .relativeword-dl, .section, .keyword-desc, .clearfix, #newsHeader, #subColumn, #newsFooter, #ldFooter, #commonFooter, .gotop, .adsense-newstop, .LDservice-link, #headerBanner, .large-showcase , #become
@@ -933,7 +933,13 @@ plugins.options["site_local_keymap.local_keymap"] = {
     ["j"   , null],
     ["ku"  , null],
 	],
+  "^http://www.slideshare.net/" : [
+    ['n', function () ext.exec("slideshare-next")],
+    ['p', function () ext.exec("slideshare-previous")],
+    ['f', function () ext.exec("slideshare-toggle-fullscreen")]
+  ],
 }
+
 
 
 // 新しいタブで開く

@@ -21,8 +21,20 @@ style.register(<><![CDATA[
         height    : 4px;
         color     : #8ec1da !important;
 		text-align:right;
-    }
+   }
+   @-moz-document domain("plus.google.com") {
+     div.a-Eo-T {
+       position:fixed;
+       top:0;
+       width:100%;
+     }
+     body {
+       padding-top:30px;
+     }
+   }
+
 ]]></>.toString() , style.XHTML);
+
 //
 //}}%PRESERVE%
 // ========================================================================= //
@@ -915,12 +927,23 @@ plugins.options["site_local_keymap.local_keymap"] = {
 		["j" , null],
 		["k" , null]
 	],
+	"^http://mail.google.com/" : [
+		["j" , null],
+		["k" , null]
+	],
+	"^http://reader.livedoor.com/reader/" : [
+    ["C-d" , function(){}],
+    ["C-u" , function(){}],
+    ["j"   , null],
+    ["ku"  , null],
+	],
   "^http://www.slideshare.net/" : [
     ['n', function () ext.exec("slideshare-next")],
     ['p', function () ext.exec("slideshare-previous")],
     ['f', function () ext.exec("slideshare-toggle-fullscreen")]
-  ]
+  ],
 }
+
 
 
 // 新しいタブで開く

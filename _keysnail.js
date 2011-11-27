@@ -355,7 +355,9 @@ key.setViewKey('C-k' , function (ev) {
 
 
 key.setEditKey('C-k' , function(ev) {
-    command.killLine(ev);
+    goDoCommand('cmd_selectEndLine');
+    goDoCommand('cmd_copy');
+    goDoCommand('cmd_delete');
   });
 
 plugins.options["zou_search.user"] = "basyura";
@@ -574,6 +576,7 @@ style.register(<><![CDATA[
     ]]></>.toString() , style.XHTML);
 
 
+/*
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://www.livedoor.com/") {
         #header, .member-outer,  #extra, .boxhead, #today-site, #feature-ad, .boxhead-blogos, #blogos-box, .wrapper-sub, #servicelist, #media, #news-special, #lite, #biz
@@ -600,6 +603,7 @@ style.register(<><![CDATA[
       }
     ]]></>.toString() , style.XHTML);
 
+    */
 
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://reader.livedoor.com/reader/") {
@@ -622,12 +626,12 @@ style.register(<><![CDATA[
       }
     ]]></>.toString() , style.XHTML);
 
+/*
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://news.livedoor.com/topics") {
         body { display : none !important; }
       }
     ]]></>.toString() , style.XHTML);
-/*
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://news.livedoor.com") {
         #functionHeader, #logo, #tagline, #navigation, #aside, #content-nav, #prtextBox, #content-nav, .prtextBox, #article-social-tool, #article-social-comment, #article-breadcrumb, .contentBox, .title-box, #photo-news, #amazon-ranking, #yahoo-shopping, #footer, .relativeword-dl, .section, .keyword-desc, .clearfix, #newsHeader, #subColumn, #newsFooter, #ldFooter, #commonFooter, .gotop, .adsense-newstop, .LDservice-link, #headerBanner, .large-showcase , #become
@@ -910,7 +914,12 @@ plugins.options["site_local_keymap.local_keymap"] = {
 	"^https://mail.google.com/" : [
 		["j" , null],
 		["k" , null]
-	]
+	],
+  "^http://www.slideshare.net/" : [
+    ['n', function () ext.exec("slideshare-next")],
+    ['p', function () ext.exec("slideshare-previous")],
+    ['f', function () ext.exec("slideshare-toggle-fullscreen")]
+  ]
 }
 
 
@@ -974,3 +983,16 @@ key.setGlobalKey(['C-x', 'j'], function (ev, arg) {
 key.setGlobalKey(['C-x', 'r'], function (ev, arg) {
     ext.exec("JsReferrence-reIndex", arg, ev);
 }, 'JsReferrenceののインデックスを作り直す', true);
+
+
+plugins.options["heaven.dotnet.references"] = [
+  { name : "dotnet",
+    param : {
+      rootDocUrl : "http://msdn.microsoft.com/ja-jp/library/gg145045.aspx"
+    }
+  }
+];
+
+key.setViewKey(['C-x', 'C-n'], function(ev, arg){
+    plugins.heavens.dotnet.open();
+}, '.NET Documentcを開く');

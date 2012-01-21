@@ -535,6 +535,17 @@ listbox#keysnail-completion-list {
  })();
 
 style.register(<><![CDATA[
+      @-moz-document url-prefix("http://b.hatena.ne.jp/") {
+        .entry-summary, .entry-data {display:none}
+        .entry-comment-fold, .others {background-color:white}
+        .entry-image {width:32px;height : 32px;}
+        .entry-image-block {display:none;}
+        .trigger {display:none;}
+
+      }
+    ]]></>.toString(), style.XHTML);
+
+style.register(<><![CDATA[
 @-moz-document url-prefix("http://twitter.com/") {
 	#introduce_retweet_banner {
 		display : none !important;

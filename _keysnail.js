@@ -741,7 +741,7 @@ let ruby_completes = null;
 shell.add("refe" , M({ja: "Ruby リファレンス検索", en: "ruby reference search"}) ,
   function (args, extra) {
     function generate_url(word) {
-      let site   = "http://doc.okkez.net/188";
+      let site   = "http://doc.okkez.net/192";
       let clazz  = word.split("#")[0];
       let method = word.split("#")[1];
       //let clazz  = word.split("\.")[0];
@@ -997,7 +997,7 @@ key.setGlobalKey(['C-x','C-l'] , function (ev) {
 
 
 key.setGlobalKey(['C-x', 'j'], function (ev, arg) {
-    ext.exec("JsReferrence-open-prompt", arg, ev);
+    ext.exec("JsReferrence-open-prompt", ["developer.mozilla.org"], ev);
 }, 'JsReferrenceのプロンプトを開く', true);
 key.setGlobalKey(['C-x', 'r'], function (ev, arg) {
     ext.exec("JsReferrence-reIndex", arg, ev);

@@ -367,7 +367,9 @@ key.setViewKey('C-k' , function (ev) {
 
 
 key.setEditKey('C-k' , function(ev) {
-    command.killLine(ev);
+    goDoCommand('cmd_selectEndLine');
+    goDoCommand('cmd_copy');
+    goDoCommand('cmd_delete');
   });
 
 plugins.options["zou_search.user"] = "basyura";
@@ -533,6 +535,17 @@ listbox#keysnail-completion-list {
  })();
 
 style.register(<><![CDATA[
+      @-moz-document url-prefix("http://b.hatena.ne.jp/") {
+        .entry-summary, .entry-data {display:none}
+        .entry-comment-fold, .others {background-color:white}
+        .entry-image {width:32px;height : 32px;}
+        .entry-image-block {display:none;}
+        .trigger {display:none;}
+
+      }
+    ]]></>.toString(), style.XHTML);
+
+style.register(<><![CDATA[
 @-moz-document url-prefix("http://twitter.com/") {
 	#introduce_retweet_banner {
 		display : none !important;
@@ -586,6 +599,7 @@ style.register(<><![CDATA[
     ]]></>.toString() , style.XHTML);
 
 
+/*
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://www.livedoor.com/") {
         #header, .member-outer,  #extra, .boxhead, #today-site, #feature-ad, .boxhead-blogos, #blogos-box, .wrapper-sub, #servicelist, #media, #news-special, #lite, #biz
@@ -612,6 +626,7 @@ style.register(<><![CDATA[
       }
     ]]></>.toString() , style.XHTML);
 
+    */
 
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://reader.livedoor.com/reader/") {
@@ -1005,12 +1020,13 @@ key.setGlobalKey(['C-x', 'r'], function (ev, arg) {
 
 
 plugins.options["heaven.dotnet.references"] = [
-    { name : "dotnet",
-      param : {
-	  rootDocUrl : "http://msdn.microsoft.com/en-us/library/gg145045.aspx"
-      }
+  { name : "dotnet",
+    param : {
+      rootDocUrl : "http://msdn.microsoft.com/ja-jp/library/gg145045.aspx"
     }
+  }
 ];
+
 key.setViewKey(['C-x', 'C-n'], function(ev, arg){
     plugins.heavens.dotnet.open();
 }, '.NET Documentcを開く');

@@ -256,9 +256,12 @@ key.setGlobalKey('C-.', function () {
 
 key.setGlobalKey('C-w', function (ev) {
     setTimeout(function () {
-      getBrowser().removeTab(getBrowser().selectedTab);
-    } , 100);
-}, 'タブ / ウィンドウを閉じる');
+        var tab = getBrowser().selectedTab;
+        if (!tab.pinned) {
+          getBrowser().removeTab(tab);
+        }
+      } , 100);
+  }, 'タブ / ウィンドウを閉じる');
 
 
 key.setGlobalKey('M-:', function () {

@@ -300,6 +300,9 @@ key.setViewKey('C-e', function (aEvent, aArg) {
     ext.exec("hok-start-background-mode", aArg);
 }, 'リンクをバックグラウンドで開く Hit a Hint を開始', true);
 
+key.setGlobalKey('C-h', function () {
+    // noop
+}, '');
 key.setEditKey('C-h', function () {
     goDoCommand("cmd_deleteCharBackward");
 }, '前の一文字を削除');
@@ -946,12 +949,19 @@ plugins.options["site_local_keymap.local_keymap"] = {
     ["C-d" , function(){}],
     ["C-u" , function(){}],
     ["j"   , null],
-    ["ku"  , null],
+    ["k"   , null],
 	],
   "^http://www.slideshare.net/" : [
     ['n', function () ext.exec("slideshare-next")],
     ['p', function () ext.exec("slideshare-previous")],
     ['f', function () ext.exec("slideshare-toggle-fullscreen")]
+  ],
+  "^https://www.rememberthemilk.com/home" : [
+    ["j"   , null],
+    ["k"   , null],
+    ["h"   , null],
+    ["c"   , null],
+    ["t"   , null],
   ],
 }
 

@@ -547,6 +547,9 @@ style.register(<><![CDATA[
         .entry-image {width:32px;height : 32px;}
         .entry-image-block {display:none;}
         .trigger {display:none;}
+        .entry-block {
+          min-height:40px !important;
+        }
 
       }
     ]]></>.toString(), style.XHTML);
@@ -965,6 +968,10 @@ plugins.options["site_local_keymap.local_keymap"] = {
     ["h"   , null],
     ["c"   , null],
     ["t"   , null],
+  ],
+  "^https://twitter.com" : [
+    ["j"   , null],
+    ["k"   , null],
   ],
 }
 

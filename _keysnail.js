@@ -1050,3 +1050,7 @@ plugins.options["heaven.dotnet.references"] = [
 key.setViewKey(['C-x', 'C-n'], function(ev, arg){
     plugins.heavens.dotnet.open();
 }, '.NET Documentcを開く');
+
+try {
+  userscript.jsFileLoader('~/.keysnail.local.js', false);
+} catch(e) {}

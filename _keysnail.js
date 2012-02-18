@@ -555,13 +555,17 @@ style.register(<><![CDATA[
     ]]></>.toString(), style.XHTML);
 
 style.register(<><![CDATA[
-@-moz-document url-prefix("http://twitter.com/") {
+@-moz-document url-prefix("https://twitter.com/") {
 	#introduce_retweet_banner {
 		display : none !important;
 	}
 	ol.statuses > li.last-on-page, ol.statuses > li.last-on-refresh {
 		border-bottom:10px solid #8ec1da !important;
 	}
+  .hovered-stream-item {
+    border-radius : 5px 5px 5px 5px;
+    border : 2px solid #2172AA !important;
+  }
 }
 ]]></>.toString(), style.XHTML);
 

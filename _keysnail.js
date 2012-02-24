@@ -158,9 +158,9 @@ key.setGlobalKey('C-f', function (ev) {
       } , 100)
 }, 'ひとつ右のタブへ');
 
-key.setGlobalKey('C-b', function () {
+key.setGlobalKey('C-b', function (ev) {
     getBrowser().mTabContainer.advanceSelectedTab(-1, true);
-	ev.cancelBubble = true;
+	  ev.cancelBubble = true;
 }, 'ひとつ左のタブへ');
 
 key.setEditKey('C-f', function (aEvent) {

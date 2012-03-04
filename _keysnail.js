@@ -920,6 +920,15 @@ shell.add("keycode" , "keycode" ,
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
 	}, { bang : true });
 
+shell.add("pluginmanager" , "open plugin mansger" ,
+	function (args, extra) {
+    KeySnail.modules.userscript.openPluginManager();
+	}, { bang : true });
+
+shell.add("openreference" , "open reference" ,
+	function (args, extra) {
+    KeySnail.openPreference();
+	}, { bang : true });
 /*
 let bookmarks = [
 	["twitterAPI" , "http://watcher.moe-nifty.com/memo/docs/twitterAPI.txt"],

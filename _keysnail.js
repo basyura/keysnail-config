@@ -929,6 +929,11 @@ shell.add("openreference" , "open reference" ,
 	function (args, extra) {
     KeySnail.openPreference();
 	}, { bang : true });
+
+shell.add("reloadplugin" , "reload plugin" ,
+	function (args, extra) {
+    userscript.loadPlugins();
+	}, { bang : true });
 /*
 let bookmarks = [
 	["twitterAPI" , "http://watcher.moe-nifty.com/memo/docs/twitterAPI.txt"],

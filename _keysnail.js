@@ -887,7 +887,7 @@ shell.add("generatefeed", M({ja: "Page2Feed", en: "Page2feed"}),
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
 	}, { bang : true });
 
-shell.add("twitterAPI", "twitter api",
+shell.add("twitterapi", "twitter api",
 	function (args, extra) {
 		let url = "http://watcher.moe-nifty.com/memo/docs/twitterAPI.txt"
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
@@ -899,19 +899,25 @@ shell.add("javadoc" , "javadoc" ,
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
 	}, { bang : true });
 
-shell.add("jqueryAPI" , "jqueryAPI" ,
+shell.add("jqueryapi" , "jqueryapi" ,
 	function (args, extra) {
 		let url = "http://semooh.jp/jquery/";
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
 	}, { bang : true });
 
 
-shell.add("railsAPI" , "railsAPI" ,
+shell.add("railsapi" , "railsapi" ,
 	function (args, extra) {
 		let url = "http://railsapi.com/doc/rails-v3.0.0/";
     	gBrowser.loadOneTab(url, null, null, null, extra.bang);
 	}, { bang : true });
  
+shell.add("rubyapi" , "rubyapi" ,
+	function (args, extra) {
+		let url = "http://miyamae.github.com/rubydoc-ja/1.9.2/#!/doc/index.html";
+    	gBrowser.loadOneTab(url, null, null, null, extra.bang);
+	}, { bang : true });
+
 
 
 shell.add("keycode" , "keycode" ,

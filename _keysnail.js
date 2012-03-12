@@ -551,13 +551,16 @@ style.register(<><![CDATA[
           min-height:40px !important;
         }
         #center-container {
-          width :100% !important;
+          width :80% !important;
         }
         #header-body , .wrapper-container-inner, .fixed-width{
-          width : 85% !important;
+          width : 100% !important;
         }
         #right-container {
           display : none;
+        }
+        #add-bookmark-button {
+          display:none !important;
         }
         .main-entry-list, .entry-block.entry-feature-image {
           padding-left:0px !important;

@@ -966,6 +966,25 @@ for(let i = 0 ; i < bookmarks.length ; i++) {
 }
 					*/
 
+ext.add("list-closed-tabs", function () {
+    const fav = "chrome://mozapps/skin/places/defaultFavicon.png";
+    var ss   = Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionStore);
+    var json = Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
+    var closedTabs = [[tab.image || fav, tab.title] for each (tab in json.decode(ss.getClosedTabData(window)))];
+
+    if (!closedTabs.length)        
+        return void display.echoStatusBar("最近閉じたタブが見つかりませんでした", 2000);
+
+    prompt.selector(
+        {
+            message    : "select tab to undo:",
+            collection : closedTabs,
+            flags      : [ICON | IGNORE, 0],
+            callback   : function (i) { if (i >= 0) window.undoCloseTab(i); }
+        });
+}, "List closed tabs");
+
+
 ///// Plugin : Site local keymap
 plugins.options["site_local_keymap.local_keymap"] = {
 	"^http://b.hatena.ne.jp/" : [
@@ -1034,6 +1053,9 @@ key.setViewKey("c", function (ev, arg) {
     ext.exec("list-hateb-comments", arg);
 }, "はてなブックマークのコメントを一覧表示", true);
 
+key.setViewKey(['u', 'c'], function () {
+    ext.exec("list-closed-tabs");
+}, 'List closed tabs');
 
 key.setGlobalKey(['C-x','C-i'] , function (ev, arg) {
     var key = 'qh9hyQwfEL1P'

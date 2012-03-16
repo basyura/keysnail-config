@@ -569,6 +569,16 @@ style.register(<><![CDATA[
       }
     ]]></>.toString(), style.XHTML);
 
+
+style.register(<><![CDATA[
+@-moz-document url-prefix("http://eow.alc.co.jp/") {
+  #AreaUpperRight, #AreaHeaderCenter, #AreaHeaderRight, #gnav, #box {
+    display:none;
+  }
+}
+]]></>.toString(), style.XHTML);
+
+
 style.register(<><![CDATA[
 @-moz-document url-prefix("https://twitter.com/") {
 	#introduce_retweet_banner {
@@ -1111,6 +1121,7 @@ plugins.options["heaven.dotnet.references"] = [
 key.setViewKey(['C-x', 'C-n'], function(ev, arg){
     plugins.heavens.dotnet.open();
 }, '.NET Documentcを開く');
+
 
 try {
   userscript.jsFileLoader('~/.keysnail.local.js', false);

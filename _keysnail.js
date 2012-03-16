@@ -551,7 +551,7 @@ style.register(<><![CDATA[
           min-height:40px !important;
         }
         #center-container {
-          width :80% !important;
+          width :70% !important;
         }
         #header-body , .wrapper-container-inner, .fixed-width{
           width : 100% !important;
@@ -565,7 +565,9 @@ style.register(<><![CDATA[
         .main-entry-list, .entry-block.entry-feature-image {
           padding-left:0px !important;
         }
-
+        .recommend-content, #userpage_invite, #feedback-pane {
+          display:none;
+        }
       }
     ]]></>.toString(), style.XHTML);
 

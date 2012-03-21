@@ -754,9 +754,9 @@ key.setGlobalKey('C-s' , function (ev, arg) {
 
 key.setGlobalKey(['C-x','C-d'], function (ev, arg) {
     setTimeout(function() {
-        shell.input("goodic ");
+        shell.input("arcdic ");
       } , 100)
-}, 'goodic');
+}, 'arcdic');
 
 key.setGlobalKey('C-j' , function(){
     //noop
@@ -893,6 +893,7 @@ shell.add("refe" , M({ja: "Ruby リファレンス検索", en: "ruby reference s
 
 
 
+
 shell.add("goodic", M({ja: "Goo 辞書", en: "Goo dic"}),
 	function (args, extra) {
 		gBrowser.loadOneTab(
@@ -900,6 +901,15 @@ shell.add("goodic", M({ja: "Goo 辞書", en: "Goo dic"}),
 	  				    encodeURIComponent(args[0])),
      	null, null, null, extra.bang);
 	}, { bang : true });
+
+shell.add("arcdic", M({ja: "Arc 辞書", en: "Arc dic"}),
+	function (args, extra) {
+		gBrowser.loadOneTab(
+			util.format("http://eow.alc.co.jp/search?q=%s&ref=sa",
+	  				    encodeURIComponent(args[0])),
+     	null, null, null, extra.bang);
+	}, { bang : true });
+
 
 
 shell.add("generatefeed", M({ja: "Page2Feed", en: "Page2feed"}),

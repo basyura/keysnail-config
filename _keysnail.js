@@ -489,8 +489,13 @@ listbox#keysnail-completion-list,
     font-family : Monaco, Consolas, monospace !important;
     background-color : %BG% !important;
     color : %FG% !important;
+    font-size:15px;
 }
  
+#keysnail-prompt
+{
+  font-size:15px;
+}
 description.ks-text-link { color : #98d3e7 !important; }
 description.ks-text-link:hover { color : #248baf !important; }
  
@@ -714,7 +719,19 @@ style.register(<><![CDATA[
       }
     ]]></>.toString() , style.XHTML);
 
-
+style.register(<><![CDATA[
+      @-moz-document url-prefix("https://www.evernote.com/") {
+        .GLMQCVEBHL {
+            height: 45px !important;
+        }
+        .noteSnippetContent {
+          display: none;
+        }
+        .noteSnippetDate {
+            float: right;
+        }
+      }
+    ]]></>.toString() , style.XHTML);
 
 
 
@@ -1050,6 +1067,10 @@ plugins.options["site_local_keymap.local_keymap"] = {
     ["t"   , null],
   ],
   "^https://twitter.com" : [
+    ["j"   , null],
+    ["k"   , null],
+  ],
+  "^https://www.google.co.jp/reader" : [
     ["j"   , null],
     ["k"   , null],
   ],

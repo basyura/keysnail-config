@@ -7,6 +7,10 @@
 //util.setBoolPref("extensions.keysnail.keyhandler.low_priority", false);
 //
 // for autopager
+//
+//style.register("file:///Users/basyura/repos/config/keysnail-config/style.css"); 
+
+/*
 style.register(<><![CDATA[
     .autopagerize_page_separator {
         display:none;
@@ -34,6 +38,7 @@ style.register(<><![CDATA[
    }
 
 ]]></>.toString() , style.XHTML);
+*/
 
 //
 //}}%PRESERVE%
@@ -351,6 +356,11 @@ key.setEditKey('C-u', function () {
     goDoCommand("cmd_undo");
 }, 'アンドゥ');
 
+key.setEditKey('C-y', function (ev) {
+    display.echoStatusBar("Redo!", 2000);
+    goDoCommand("cmd_redo");
+}, 'リドゥ')
+
 key.setGlobalKey('C-r', function () {
     BrowserReload();
 }, '更新');
@@ -401,7 +411,7 @@ key.setGlobalKey(["C-c", "C-t"],
     }, "つぶやく", true);
 
 plugins.options["twitter_client.popup_new_statuses"] = true;
-
+/*
 (function () {
      function arrange(seed) {
          let colors = [
@@ -468,7 +478,7 @@ plugins.options["twitter_client.popup_new_statuses"] = true;
              plugins.options[prefix + "." + k] = arrange(v);
  
      style.register(arrange(<><![CDATA[
-/* おまじない */
+// おまじない 
 #keysnail-prompt,
 #keysnail-prompt textbox,
 listbox#keysnail-completion-list,
@@ -479,7 +489,7 @@ listbox#keysnail-completion-list listitem,
     border : none !important;
 }
  
-/* 基本スタイル */
+// 基本スタイル 
 #keysnail-prompt,
 #keysnail-prompt textbox,
 listbox#keysnail-completion-list,
@@ -499,16 +509,8 @@ listbox#keysnail-completion-list,
 description.ks-text-link { color : #98d3e7 !important; }
 description.ks-text-link:hover { color : #248baf !important; }
  
-/*
-listbox#keysnail-completion-list {
-background-image : url("file:///home/masa/Desktop/ildjarn.png") !important;
-background-position : right bottom !important;
-background-attachment : fixed !important;
-background-repeat : no-repeat !important;
-}
-*/
  
-/* 選択中行のスタイル */
+// 選択中行のスタイル 
 #keysnail-completion-list listitem[selected="true"],
 listbox#keysnail-completion-list:focus > listitem[selected="true"]
 {
@@ -516,24 +518,24 @@ listbox#keysnail-completion-list:focus > listitem[selected="true"]
     color : %FG_SELECTED% !important;
 }
  
-/* プロンプト入力エリアへマウスオーバーした際, 背景色を変更 */
+// プロンプト入力エリアへマウスオーバーした際, 背景色を変更
 #keysnail-prompt textbox:hover
 {
     background-color : %BG_HOVER% !important;
 }
  
-/* プロンプトのメッセージ */
+// プロンプトのメッセージ
 .keysnail-prompt-label {
     color : %FG_MESSAGE% !important;
 }
  
-/* 下部へ線を引く */
+// 下部へ線を引く
 listbox#keysnail-completion-list {
     border-bottom : 1px solid %FG% !important;
     margin : 0 !important;
 }
  
-/* ヘッダ */
+// ヘッダ
 #keysnail-completion-list listheader {
     font-weight : bold !important;
     padding : 2px !important;
@@ -642,37 +644,9 @@ style.register(<><![CDATA[
         #searchbox, #header, #toptxt, #sub, #pickupservice, #application, #companybox, #composite, #favoriteservice, #spotlight, #selectionR, #video, #cgmboxR, #announce, #event, #tct, #footer { display : none; }
       }
     ]]></>.toString() , style.XHTML);
-
+*/
 
 /*
-style.register(<><![CDATA[
-      @-moz-document url-prefix("http://www.livedoor.com/") {
-        #header, .member-outer,  #extra, .boxhead, #today-site, #feature-ad, .boxhead-blogos, #blogos-box, .wrapper-sub, #servicelist, #media, #news-special, #lite, #biz
-        { display : none; }
-      }
-    ]]></>.toString() , style.XHTML);
-
-style.register(<><![CDATA[
-      @-moz-document url-prefix("http://dailynews.yahoo.co.jp") {
-        body { display : none; }
-      }
-    ]]></>.toString() , style.XHTML);
-
-style.register(<><![CDATA[
-      @-moz-document url-prefix("http://headlines.yahoo.co.jp/") ,
-                     url-prefix("http://zasshi.news.yahoo.co.jp/") {
-        #sub, .adCt, #contents-header, #uhd, .yjmthproplogoarea, .yjmthloginarea, #subNav, #ynRelatedArticleList, #center1, #ynFreshEye, #ynAffinityList, #ynDetailPageNavigation, #pos-sqb, #ynRelatedTopics, #center2, #bottomNav, #yjPluginAFP01, .yjstdPlug, #footer, #ynRating, #ynSportsMod, #ynSocialBookmark, #ynRelatedBlog, #commentshow, .cptHeaderComment, .cptSort  { display : none !important; };
-      }
-      .yjmth {
-        text-align : left !important;
-        position : absolute;
-        left  : 10px;
-        top   : 0px;
-      }
-    ]]></>.toString() , style.XHTML);
-
-    */
-
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://reader.livedoor.com/reader/") {
         #header,#ads_top, .adsWrapper, #total_unread_count, #myfeed, #my_menu, #reader_logo { display : none }
@@ -694,25 +668,6 @@ style.register(<><![CDATA[
       }
     ]]></>.toString() , style.XHTML);
 
-/*
-style.register(<><![CDATA[
-      @-moz-document url-prefix("http://news.livedoor.com/topics") {
-        body { display : none !important; }
-      }
-    ]]></>.toString() , style.XHTML);
-style.register(<><![CDATA[
-      @-moz-document url-prefix("http://news.livedoor.com") {
-        #functionHeader, #logo, #tagline, #navigation, #aside, #content-nav, #prtextBox, #content-nav, .prtextBox, #article-social-tool, #article-social-comment, #article-breadcrumb, .contentBox, .title-box, #photo-news, #amazon-ranking, #yahoo-shopping, #footer, .relativeword-dl, .section, .keyword-desc, .clearfix, #newsHeader, #subColumn, #newsFooter, #ldFooter, #commonFooter, .gotop, .adsense-newstop, .LDservice-link, #headerBanner, .large-showcase , #become
-        { display : none !important; }
-        #contentHeader {
-          position : absolute;
-          top  : -15px;
-          left : -240px; -50px;
-        }
-      }
-    ]]></>.toString() , style.XHTML);
-*/
-
 style.register(<><![CDATA[
       @-moz-document url-prefix("http://2ch.xn--o9j0bk.gaasuu.com/entry") {
         body { display : none !important; }
@@ -733,7 +688,7 @@ style.register(<><![CDATA[
       }
     ]]></>.toString() , style.XHTML);
 
-
+*/
 
 function defineGoogleSearchCommand(names, description , site) {
   shell.add(names , description ,

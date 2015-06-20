@@ -697,7 +697,7 @@ function defineGoogleSearchCommand(names, description , site) {
 	  if(site != undefined) {
 		  words += " site:" + site;
 	  }
-      let words = encodeURIComponent(words);
+      words = words.replace("#", "%23")
       let url = "http://www.google.co.jp/search?q=" + words + "&ie=utf-8&oe=utf-8";
       gBrowser.loadOneTab(url, null, null, null, extra.bang);
     },
@@ -1028,6 +1028,12 @@ plugins.options["site_local_keymap.local_keymap"] = {
   "^https://www.google.co.jp/reader" : [
     ["j"   , null],
     ["k"   , null],
+  ],
+  "^https://www.evernote.com" : [
+    ["C-f" , null],
+    ["C-b" , null],
+    ["C-n" , null],
+    ["C-p" , null],
   ],
 }
 

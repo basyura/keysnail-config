@@ -970,7 +970,10 @@ ext.add("list-closed-tabs", function () {
     const fav = "chrome://mozapps/skin/places/defaultFavicon.png";
     var ss   = Cc["@mozilla.org/browser/sessionstore;1"].getService(Ci.nsISessionStore);
     var json = Cc["@mozilla.org/dom/json;1"].createInstance(Ci.nsIJSON);
-    var closedTabs = [[tab.image || fav, tab.title] for each (tab in json.decode(ss.getClosedTabData(window)))];
+
+    var closedTabs = json.decode(ss.getClosedTabData(window)).map(function (tab) {
+        return [tab.image || fav, tab.title];
+    });
 
     if (!closedTabs.length)        
         return void display.echoStatusBar("最近閉じたタブが見つかりませんでした", 2000);

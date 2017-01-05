@@ -44,6 +44,9 @@ style.register(<><![CDATA[
 //}}%PRESERVE%
 // ========================================================================= //
 
+util.setPref("browser.tabs.closeWindowWithLastTab", false);
+util.setPref("browser.sessionstore.max_tabs_undo", 50);
+
 // ========================= Special key settings ========================== //
 
 key.quitKey              = "C-j";

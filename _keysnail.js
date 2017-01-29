@@ -45,7 +45,7 @@ style.register(<><![CDATA[
 // ========================================================================= //
 
 util.setPref("browser.tabs.closeWindowWithLastTab", false);
-util.setPref("browser.sessionstore.max_tabs_undo", 50);
+util.setPref("browser.sessionstore.max_tabs_undo", 500);
 util.setPref("browser.tabs.loadDivertedInBackground", true);
 // ========================= Special key settings ========================== //
 
@@ -751,7 +751,7 @@ key.setGlobalKey(['C-x','C-r'], function (ev, arg) {
 shell.add("rurema" , M({ja: "るりまサーチ", en: "rurema search"}) ,
   function(argx , extra) {
     let list  = extra.left.split(/\s+/)
-    let url = "http://doc.ruby-lang.org/ja/search/version:1.9.2/";
+    let url = "https://docs.ruby-lang.org/ja/search/";
     for(let i = 0 ; i < list.length ; i++) {
       url += 'query:' + encodeURIComponent(list[i]) + '/';
     }
